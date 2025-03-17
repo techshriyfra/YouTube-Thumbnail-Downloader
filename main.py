@@ -16,18 +16,18 @@ Bot = Client(
 )
 
 START_TEXT = """Hello {},
-I am a simple youtube thumbnail downloader telegram bot.
+I am a Simple Youtube Thumbnail Downloader Telegram Bot.
 
-- Send a youtube video link or video ID.
-- I will send the thumbnail.
-- You can also send youtube video link or video id with quality. ( like :- `rokGy0huYEA | sd`
+- Send a Youtube Video Link or Video ID.
+- I will Send the Thumbnail.
+- You can also send youtube video link or video id with quality. ( like :- `VnlSj62X3qc | sd`
   - sd - Standard Quality
   - mq - Medium Quality
   - hq - High Quality
   - maxres - Maximum Resolution
 """
 
-BUTTON = [InlineKeyboardButton("Feedback", url='https://telegram.me/FayasNoushad')]
+BUTTON = [InlineKeyboardButton("♥️ᴏᴡɴᴇʀ", url='https://telegram.me/SmartEdith_Bot')]
 
 photo_buttons = InlineKeyboardMarkup(
     [[InlineKeyboardButton('Other Qualities', callback_data='qualities')], BUTTON]
