@@ -25,7 +25,7 @@ I am a Simple YouTube Thumbnail Downloader Telegram Bot.
   - maxres - Maximum Resolution
 """
 
-BUTTON = [InlineKeyboardButton("♥️ Owner", url='https://telegram.me/SmartEdith_Bot')]
+BUTTON = [InlineKeyboardButton("♥️ᴏᴡɴᴇʀ", url='https://telegram.me/SmartEdith_Bot')]
 
 photo_buttons = InlineKeyboardMarkup(
     [[InlineKeyboardButton('Other Qualities', callback_data='qualities')], BUTTON]
