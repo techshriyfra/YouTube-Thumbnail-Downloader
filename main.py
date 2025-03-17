@@ -1,11 +1,15 @@
 import os
+import signal
+import sys
 import ytthumb
 from dotenv import load_dotenv
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, InputMediaPhoto
 
+# Load environment variables
 load_dotenv()
 
+# Initialize the bot
 Bot = Client(
     "YouTube-Thumbnail-Downloader",
     bot_token=os.environ.get("BOT_TOKEN"),
@@ -13,6 +17,21 @@ Bot = Client(
     api_hash=os.environ.get("API_HASH")
 )
 
+# Start and stop polling for Koyeb
+def start_polling():
+    print("Bot started polling...")
+    Bot.run()
+
+def stop_polling(signum, frame):
+    print("\nBot stopping polling...")
+    Bot.stop()
+    sys.exit(0)
+
+# Register signal handlers for graceful shutdown
+signal.signal(signal.SIGINT, stop_polling)
+signal.signal(signal.SIGTERM, stop_polling)
+
+# Start message
 START_TEXT = """Hello {},
 I am a Simple YouTube Thumbnail Downloader Telegram Bot.
 
@@ -25,6 +44,7 @@ I am a Simple YouTube Thumbnail Downloader Telegram Bot.
   - maxres - Maximum Resolution
 """
 
+# Buttons
 BUTTON = [InlineKeyboardButton("♥️ᴏᴡɴᴇʀ", url='https://telegram.me/SmartEdith_Bot')]
 
 photo_buttons = InlineKeyboardMarkup(
@@ -35,6 +55,7 @@ file_buttons = InlineKeyboardMarkup(
     [[InlineKeyboardButton('Download as File', callback_data='download_file')], BUTTON]
 )
 
+# Callback query handler
 @Bot.on_callback_query()
 async def cb_data(_, message):
     data = message.data.lower()
@@ -80,6 +101,7 @@ async def cb_data(_, message):
         await message.answer('Updated Successfully')
 
 
+# Start command handler
 @Bot.on_message(filters.private & filters.command(["start", "help"]))
 async def start(_, message):
     await message.reply_text(
@@ -90,6 +112,7 @@ async def start(_, message):
     )
 
 
+# Text message handler
 @Bot.on_message(filters.private & filters.text)
 async def send_thumbnail(bot, update):
     message = await update.reply_text(
@@ -122,4 +145,6 @@ async def send_thumbnail(bot, update):
         )
 
 
-Bot.run()
+# Start the bot
+if __name__ == "__main__":
+    start_polling()
